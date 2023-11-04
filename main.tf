@@ -11,8 +11,8 @@ terraform {
 }
 provider "google" {
   # ID проекта
-  project = "infra-404007"
-  region  = "europe-west1"
+  project = var.project
+  region  = var.region
 }
 
 resource "google_compute_instance" "app" {
@@ -22,12 +22,12 @@ resource "google_compute_instance" "app" {
   # определение загрузочного диска
   boot_disk {
     initialize_params {
-      image = "reddit-base"
+      image = var.disk_image
     }
   }
   metadata = {
     # путь до публичного ключа
-    ssh-keys = "appuser:${file("~/.ssh/appuser.pub")}"
+    ssh-keys = "appuser:${file(var.public_key_path)}"
   }
   tags = ["reddit-app"]
   # определение сетевого интерфейса
