@@ -18,3 +18,4 @@
     group: appuser
 - name: enable puma
   systemd: name=puma enabled=yes
+
